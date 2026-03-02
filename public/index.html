@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quantum Ambulance Dispatch — Quantum-Classical Optimization</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-app.js";
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-analytics.js";
+        const firebaseConfig = {
+            apiKey: "AIzaSyDJjpBz-xbpjSgHuPCUZCdQoTni-9I3ww8",
+            authDomain: "hackathon-0161.firebaseapp.com",
+            projectId: "hackathon-0161",
+            storageBucket: "hackathon-0161.firebasestorage.app",
+            messagingSenderId: "129609188326",
+            appId: "1:129609188326:web:dcde8c29bf39ae62f28c27",
+            measurementId: "G-CE0T5KKRHK"
+        };
+        initializeApp(firebaseConfig);
+        getAnalytics(initializeApp(firebaseConfig));
+    </script>
+</head>
+
+<body>
+
+    <!-- ========== NAVBAR ========== -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-inner">
+            <a href="#" class="nav-logo">🚑 <span>QuantumDispatch</span></a>
+            <ul class="nav-links">
+                <li><a href="#hero" class="nav-link active">Home</a></li>
+                <li><a href="#about" class="nav-link">About</a></li>
+                <li><a href="#dashboard" class="nav-link">Dashboard</a></li>
+                <li><a href="speaker-notes.html" class="nav-link">🎤 Speaker Notes</a></li>
+            </ul>
+            <a href="#dashboard" class="nav-cta">Run Demo →</a>
+            <button class="nav-hamburger" id="nav-toggle">☰</button>
+        </div>
+    </nav>
+
+    <!-- ========== HERO ========== -->
+    <section class="hero" id="hero">
+        <div class="hero-badge"><span class="badge-dot"></span> Quantum Computing · QAOA · QUBO</div>
+        <h1 class="hero-title">Dispatch smarter,<br><span class="hero-accent">save lives faster.</span></h1>
+        <p class="hero-subtitle">A Hybrid Quantum-Classical optimization framework for real-time emergency ambulance
+            dispatch, powered by QUBO formulation and the QAOA algorithm via Qiskit.</p>
+        <div class="hero-actions">
+            <a href="#dashboard" class="btn-primary">Run Optimization →</a>
+            <a href="speaker-notes.html" class="btn-ghost">🎤 Speaker Notes</a>
+        </div>
+        <div class="hero-stats">
+            <div class="stat"><span>QUBO</span>
+                <p>Formulation</p>
+            </div>
+            <div class="stat-divider"></div>
+            <div class="stat"><span>QAOA</span>
+                <p>Quantum Solver</p>
+            </div>
+            <div class="stat-divider"></div>
+            <div class="stat"><span>N!</span>
+                <p>Classical Growth</p>
+            </div>
+            <div class="stat-divider"></div>
+            <div class="stat"><span>Qiskit</span>
+                <p>Framework</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== ABOUT ========== -->
+    <section class="about-section" id="about">
+        <div class="section-label">The Problem</div>
+        <h2 class="section-title">Why Quantum for Ambulance Dispatch?</h2>
+        <p class="section-subtitle">Classical computers struggle with combinatorial explosion. Quantum optimization
+            offers a fundamentally better path.</p>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">⚡</div>
+                <h3>Factorial Complexity</h3>
+                <p>For N ambulances, classical brute-force requires N! checks. At 20 ambulances, that's 2.4 quintillion
+                    combinations.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🧮</div>
+                <h3>QUBO Formulation</h3>
+                <p>We encode the dispatch problem as a Quadratic Unconstrained Binary Optimization — natively compatible
+                    with quantum algorithms.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">⚛️</div>
+                <h3>QAOA Algorithm</h3>
+                <p>The Quantum Approximate Optimization Algorithm uses parameterized quantum circuits to find
+                    near-optimal solutions efficiently.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🚑</div>
+                <h3>Real-World Impact</h3>
+                <p>Faster, smarter dispatch assignments based on Distance × Traffic × Severity — saving critical minutes
+                    in emergencies.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== DASHBOARD ========== -->
+    <section class="dashboard-section" id="dashboard">
+        <div class="section-label">Live Demo</div>
+        <h2 class="section-title">Optimization Dashboard</h2>
+        <p class="section-subtitle">Select ambulances, set availability, configure patients, and run the real Qiskit
+            QAOA engine.</p>
+
+        <div class="dashboard-layout">
+            <!-- Controls Panel -->
+            <div class="controls-panel">
+                <h3 class="panel-title">⚙️ Parameters</h3>
+
+                <!-- Ambulance Selection -->
+                <div class="selector-section">
+                    <label class="selector-title">🚑 Ambulances</label>
+                    <div class="unit-grid" id="ambulance-grid">
+                        <div class="unit-card amb-card selected" data-id="A1">
+                            <div class="unit-name">A1</div>
+                            <select class="status-select" data-unit="A1">
+                                <option value="available">🟢 Available</option>
+                                <option value="enroute">🟡 En Route</option>
+                                <option value="busy">🔴 Busy</option>
+                            </select>
+                        </div>
+                        <div class="unit-card amb-card selected" data-id="A2">
+                            <div class="unit-name">A2</div>
+                            <select class="status-select" data-unit="A2">
+                                <option value="available">🟢 Available</option>
+                                <option value="enroute">🟡 En Route</option>
+                                <option value="busy">🔴 Busy</option>
+                            </select>
+                        </div>
+                        <div class="unit-card amb-card" data-id="A3">
+                            <div class="unit-name">A3</div>
+                            <select class="status-select" data-unit="A3">
+                                <option value="available">🟢 Available</option>
+                                <option value="enroute">🟡 En Route</option>
+                                <option value="busy">🔴 Busy</option>
+                            </select>
+                        </div>
+                        <div class="unit-card amb-card" data-id="A4">
+                            <div class="unit-name">A4</div>
+                            <select class="status-select" data-unit="A4">
+                                <option value="available">🟢 Available</option>
+                                <option value="enroute">🟡 En Route</option>
+                                <option value="busy">🔴 Busy</option>
+                            </select>
+                        </div>
+                    </div>
+                    <p class="hint-text">Click a card to include/exclude. Set status per ambulance.</p>
+                </div>
+
+                <!-- Patient Selection -->
+                <div class="selector-section">
+                    <label class="selector-title">🏥 Patients (Emergencies)</label>
+                    <div class="unit-grid" id="patient-grid">
+                        <div class="unit-card pat-card selected" data-id="E1">
+                            <div class="unit-name">E1</div>
+                            <div class="severity-control">
+                                <span class="sev-label">Sev:</span>
+                                <input type="number" class="sev-input" data-patient="E1" min="1" max="5" value="3">
+                            </div>
+                        </div>
+                        <div class="unit-card pat-card selected" data-id="E2">
+                            <div class="unit-name">E2</div>
+                            <div class="severity-control">
+                                <span class="sev-label">Sev:</span>
+                                <input type="number" class="sev-input" data-patient="E2" min="1" max="5" value="2">
+                            </div>
+                        </div>
+                        <div class="unit-card pat-card" data-id="E3">
+                            <div class="unit-name">E3</div>
+                            <div class="severity-control">
+                                <span class="sev-label">Sev:</span>
+                                <input type="number" class="sev-input" data-patient="E3" min="1" max="5" value="4">
+                            </div>
+                        </div>
+                        <div class="unit-card pat-card" data-id="E4">
+                            <div class="unit-name">E4</div>
+                            <div class="severity-control">
+                                <span class="sev-label">Sev:</span>
+                                <input type="number" class="sev-input" data-patient="E4" min="1" max="5" value="1">
+                            </div>
+                        </div>
+                    </div>
+                    <p class="hint-text">Click to include. Severity 1=Low, 5=Critical.</p>
+                </div>
+
+                <div class="control-group">
+                    <label>Traffic Congestion Factor</label>
+                    <div class="slider-val" id="traffic-val">2.0</div>
+                    <input type="range" id="traffic" min="1" max="5" step="0.1" value="2.0">
+                </div>
+
+                <hr>
+
+                <div class="cost-formula">
+                    <p class="formula-label">Cost Formula</p>
+                    <p class="formula-text">Cost = Distance × Traffic × Severity</p>
+                </div>
+                <button class="run-btn" id="run-btn">🚀 Run Optimization</button>
+                <div class="api-note">💡 Ensure <code>python api.py</code> is running on <code>localhost:8000</code> for
+                    authentic QAOA results.</div>
+            </div>
+
+            <!-- Results Panel -->
+            <div class="results-panel">
+                <div id="main-content" class="fade-in hidden">
+
+                    <!-- Metric Cards -->
+                    <div class="metrics-grid">
+                        <div class="metric-card classical-card">
+                            <p class="metric-badge classical-badge">🖥️ Classical Result</p>
+                            <div class="metric-value" id="classical-cost">—</div>
+                            <div class="metric-sub">Assignment: <span id="classical-assign">—</span></div>
+                            <div class="metric-sub">Time: <span id="classical-time">—</span> sec</div>
+                        </div>
+                        <div class="metric-card quantum-card">
+                            <p class="metric-badge quantum-badge">⚛️ Quantum QAOA Result</p>
+                            <div class="metric-value" id="quantum-cost">—</div>
+                            <div class="metric-sub">Assignment: <span id="quantum-assign">—</span></div>
+                            <div class="metric-sub">Time: <span id="quantum-time">—</span> sec</div>
+                        </div>
+                    </div>
+
+                    <!-- Chart + Graph -->
+                    <div class="visuals-grid">
+                        <div class="chart-container">
+                            <div style="width:100%;height:100%;"><canvas id="timeChart"></canvas></div>
+                        </div>
+                        <div class="graph-container">
+                            <h3>📍 Dispatch Distance Graph <span style="color:#6b7a99;font-weight:400;">(Green=Short ·
+                                    Red=Long)</span></h3>
+                            <div class="canvas-wrapper">
+                                <canvas id="graphCanvas" width="500" height="280"></canvas>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Cost Heatmap -->
+                    <div class="heatmap-section">
+                        <h3 class="sub-heading">📊 Cost Matrix Heatmap</h3>
+                        <p class="sub-desc">Full computed cost for each ambulance–patient pair. Green = low, Red = high.
+                            Bold border = optimal assignment.</p>
+                        <div id="heatmap-table-wrapper"></div>
+                    </div>
+
+                    <!-- Scalability Graph -->
+                    <div class="graph-container scalability-section">
+                        <h3 class="sub-heading">📈 Classical vs Quantum Scalability</h3>
+                        <p class="sub-desc">Classical complexity grows as N! (factorial). Quantum approximate methods
+                            scale far better at large N.</p>
+                        <div style="width:100%;height:280px;"><canvas id="scalabilityChart"></canvas></div>
+                    </div>
+
+                    <!-- Quantum Circuit -->
+                    <div class="circuit-section" id="circuit-section">
+                        <h3 class="sub-heading">⚛️ QAOA Quantum Circuit</h3>
+                        <p class="sub-desc">The actual Qiskit quantum circuit used to solve your optimization problem.
+                        </p>
+                        <div id="circuit-img-wrapper" class="circuit-loading">
+                            <div class="circuit-spinner">⏳ Loading quantum circuit...</div>
+                        </div>
+                    </div>
+
+                    <div class="success-message">✨ Optimization Complete — Quantum result verified via Qiskit QAOA</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== FOOTER ========== -->
+    <footer class="site-footer">
+        <div class="footer-inner">
+            <div class="footer-logo">🚑 QuantumDispatch</div>
+            <p class="footer-desc">Quantum-Classical Hybrid Ambulance Dispatch · Hackathon 2026</p>
+            <div class="footer-links">
+                <a href="#hero">Home</a>
+                <a href="#about">About</a>
+                <a href="#dashboard">Dashboard</a>
+                <a href="speaker-notes.html">🎤 Speaker Notes</a>
+            </div>
+            <p class="footer-copy">Built with Qiskit · FastAPI · Firebase · QUBO · QAOA</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

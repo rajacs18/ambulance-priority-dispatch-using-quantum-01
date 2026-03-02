@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Speaker Notes – Quantum Ambulance Dispatch</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #0b0f1a;
+            --card: #151e2e;
+            --border: #1e2d45;
+            --accent: #00e676;
+            --quantum: #448aff;
+            --text: #e8f0fe;
+            --muted: #8ca0c0;
+            --warning: #f0a500;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #0b0f1a 0%, #0d1527 60%, #0a1020 100%);
+            background-attachment: fixed;
+            color: var(--text);
+            padding: 2rem;
+            max-width: 920px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            padding: 2.5rem 0 2rem;
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 2rem;
+        }
+
+        header h1 {
+            font-size: 2.2rem;
+            font-weight: 800;
+            background: linear-gradient(90deg, #e8f0fe, #00e676);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.5rem;
+        }
+
+        header p {
+            color: var(--muted);
+            font-size: 1rem;
+        }
+
+        .back-btn {
+            display: inline-block;
+            margin-bottom: 2rem;
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .back-btn:hover {
+            text-decoration: underline;
+        }
+
+        .slide-card {
+            background: linear-gradient(145deg, #151e2e, #101929);
+            border: 1px solid var(--border);
+            border-left: 5px solid var(--accent);
+            border-radius: 12px;
+            padding: 1.5rem 2rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 0 14px rgba(0, 230, 118, 0.06), 0 4px 12px rgba(0, 0, 0, 0.4);
+            transition: transform 0.2s ease;
+        }
+
+        .slide-card:hover {
+            transform: translateY(-2px);
+        }
+
+        .slide-card.quantum {
+            box-shadow: 0 0 14px rgba(68, 138, 255, 0.1), 0 4px 12px rgba(0, 0, 0, 0.4);
+        }
+
+
+
+        .slide-card h2 {
+            font-size: 0.85rem;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 1rem;
+        }
+
+        .slide-card.quantum h2 {
+            color: var(--quantum);
+        }
+
+        .slide-card p,
+        .slide-card li {
+            font-size: 1rem;
+            line-height: 1.9;
+            color: var(--text);
+        }
+
+        .slide-card ul {
+            margin: 0.5rem 0 0.5rem 1.2rem;
+        }
+
+        .note {
+            margin-top: 1rem;
+            padding: 0.75rem 1rem;
+            background: rgba(240, 165, 0, 0.08);
+            border-left: 3px solid var(--warning);
+            border-radius: 4px;
+            color: var(--warning);
+            font-size: 0.9rem;
+        }
+
+        .qa-box {
+            margin-top: 1rem;
+            padding: 0.75rem 1rem;
+            background: rgba(0, 123, 255, 0.07);
+            border-left: 3px solid var(--quantum);
+            border-radius: 4px;
+            font-size: 0.9rem;
+            color: #aac4ff;
+        }
+
+        .qa-box strong {
+            color: #fff;
+        }
+
+        .final-box {
+            background: linear-gradient(135deg, rgba(0, 230, 118, 0.06), rgba(68, 138, 255, 0.06));
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.5rem 2rem;
+            margin: 2.5rem 0 1rem;
+            box-shadow: 0 0 20px rgba(0, 230, 118, 0.08);
+        }
+
+        .final-box h3 {
+            color: var(--accent);
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+
+        .final-box ul {
+            list-style: none;
+        }
+
+        .final-box li {
+            margin-bottom: 0.5rem;
+            color: var(--muted);
+        }
+
+        .final-box li::before {
+            content: "✔ ";
+            color: var(--accent);
+        }
+
+        .page-footer {
+            text-align: center;
+            color: var(--muted);
+            font-size: 0.85rem;
+            margin-top: 3rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--border);
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>🎤 Full Professional Speaker Notes</h1>
+        <p>Quantum Priority Ambulance Dispatch — Complete Hackathon Presentation Guide</p>
+    </header>
+
+    <a href="index.html" class="back-btn">← Back to Dashboard</a>
+
+    <div class="slide-card">
+        <h2>🟦 Slide 1 — Title Slide</h2>
+        <p>"Good morning respected judges. We present a quantum optimization framework for emergency ambulance dispatch.
+        </p>
+        <p>Our objective is to model real-world emergency assignment as a formal optimization problem and solve it using
+            QUBO formulation and QAOA — a hybrid quantum-classical algorithm.</p>
+        <p>This project demonstrates how quantum computing principles can be applied to real-time logistics and
+            healthcare systems."</p>
+        <div class="note">⏸ Pause. Look at judges before moving to the next slide.</div>
+    </div>
+
+    <div class="slide-card">
+        <h2>🟦 Slide 2 — Problem Statement</h2>
+        <p>"In emergency response systems, the key objective is minimizing response time. However, response time is
+            influenced by multiple factors:</p>
+        <ul>
+            <li>Distance between ambulance and patient</li>
+            <li>Traffic congestion</li>
+            <li>Patient severity</li>
+        </ul>
+        <p>Additionally, we must ensure each ambulance is assigned to exactly one patient, and each patient is served by
+            exactly one ambulance.</p>
+        <p>This makes the problem a <strong>constrained combinatorial optimization problem</strong>."</p>
+    </div>
+
+    <div class="slide-card">
+        <h2>🟦 Slide 3 — Real-World Complexity</h2>
+        <p>"If there are N ambulances and N patients, there are N! possible assignments:</p>
+        <ul>
+            <li>4 ambulances → 24 possibilities</li>
+            <li>10 ambulances → 3.6 million possibilities</li>
+            <li>20 ambulances → 2.4 quintillion possibilities</li>
+        </ul>
+        <p>This factorial growth makes classical brute-force infeasible at scale. This is where quantum optimization
+            becomes relevant."</p>
+        <div class="note">💡 If a judge interrupts here — good. It shows engagement. Welcome the question.</div>
+    </div>
+
+    <div class="slide-card">
+        <h2>🟦 Slide 4 — Our Cost Model</h2>
+        <p>"We define cost as:</p>
+        <p
+            style="font-size:1.1rem; font-weight:700; margin: 0.8rem 0; color: #00e676; text-shadow: 0 0 10px rgba(0,230,118,0.5);">
+            Cost = Distance × Traffic × Severity</p>
+        <p>Distance represents base travel time. Traffic models congestion multiplier. Severity ensures critical
+            patients are prioritized. This ensures high-severity patients increase effective cost if delayed, guiding
+            the optimizer toward prioritization."</p>
+        <div class="note">🔑 Key line: "This converts a real-world decision problem into a measurable optimization
+            objective."</div>
+    </div>
+
+    <div class="slide-card quantum">
+        <h2>🟦 Slide 5 — Mathematical Formulation</h2>
+        <p>"We define binary decision variables:</p>
+        <ul>
+            <li>x(i,j) = 1 if ambulance i is assigned to patient j</li>
+            <li>x(i,j) = 0 otherwise</li>
+        </ul>
+        <p>Constraints: each ambulance assigned exactly once, each patient assigned exactly once. This structure
+            naturally forms an assignment optimization problem."</p>
+    </div>
+
+    <div class="slide-card quantum">
+        <h2>🟦 Slide 6 — Why QUBO?</h2>
+        <p>"To use quantum optimization algorithms, we convert the constrained problem into QUBO form — Quadratic
+            Unconstrained Binary Optimization.</p>
+        <p>In QUBO, the objective function includes cost terms and constraints are converted into penalty terms. This
+            creates a single quadratic energy function suitable for quantum optimization."</p>
+        <div class="qa-box"><strong>If judge asks "Why QUBO?":</strong><br>
+            "Because QAOA and quantum annealing operate naturally on quadratic binary formulations."</div>
+    </div>
+
+    <div class="slide-card quantum">
+        <h2>🟦 Slide 7 — Why QAOA?</h2>
+        <p>"QAOA stands for Quantum Approximate Optimization Algorithm. It is a hybrid algorithm that uses a
+            parameterized quantum circuit, evaluates cost expectation, and updates parameters using a classical
+            optimizer.</p>
+        <p>It is specifically designed for combinatorial optimization problems such as MaxCut and assignment problems."
+        </p>
+        <div class="note">🔑 Important clarification: "Currently, we run QAOA on a quantum <em>simulator</em>." Be
+            honest — judges respect transparency.</div>
+    </div>
+
+    <div class="slide-card">
+        <h2>🟦 Slide 8 — System Architecture</h2>
+        <p>"The workflow is:</p>
+        <p style="margin: 0.8rem 0; color: #00e676; font-weight: 600; text-shadow: 0 0 8px rgba(0,230,118,0.4);">User
+            inputs → Cost matrix → QUBO formulation → QAOA solver → Optimal assignment → Visualization</p>
+        <p>We also compute the classical brute-force solution for baseline comparison."</p>
+        <div class="note">💡 This shows scientific rigor — they will appreciate you having a comparison baseline.</div>
+    </div>
+
+    <div class="slide-card">
+        <h2>🟦 Slide 9 — Implementation</h2>
+        <p>"We implemented using Python, Qiskit, FastAPI, and a JavaScript dashboard for live visualization.</p>
+        <p>The QUBO conversion is handled using the Qiskit Optimization module. The QAOA algorithm runs with a classical
+            COBYLA optimizer. The website communicates with our Python engine via REST API."</p>
+    </div>
+
+    <div class="slide-card">
+        <h2>🟦 Slide 10 — Live Demonstration</h2>
+        <p>"This graph shows distances between ambulances and patients — colored green to red based on distance. The
+            optimal assignment is determined by minimizing total cost across all constraint factors."</p>
+        <div class="note">🔑 Very important line: "We are not hiding complexity inside the quantum algorithm —
+            everything is mathematically verifiable." Judges love this.</div>
+    </div>
+
+    <div class="slide-card quantum">
+        <h2>🟦 Slide 11 — Classical vs Quantum</h2>
+        <p>"For small problem sizes, classical brute-force is faster. This is expected.</p>
+        <p>However, classical complexity grows factorially with scale. Quantum optimization is expected to scale
+            differently and may provide advantage at larger combinatorial instances."</p>
+        <div class="qa-box">
+            <strong>If judge says "But here classical is faster":</strong><br>
+            "Yes, because this is a small-scale simulation. On a quantum simulator, QAOA takes longer because simulating
+            qubits on classical hardware is expensive. On real quantum hardware, this tradeoff reverses at
+            scale."<br><br>
+            <strong>Stay calm. Confidence matters.</strong>
+        </div>
+    </div>
+
+    <div class="slide-card quantum">
+        <h2>🟦 Slide 12 — Scalability</h2>
+        <p>"At large scale, classical brute-force grows factorially while quantum optimization potentially scales
+            polynomially or approximately.</p>
+        <p>However, current quantum hardware is limited in qubits and noise tolerance. Therefore, this project
+            demonstrates feasibility and modeling rather than immediate quantum supremacy."</p>
+        <div class="note">🔑 Strong sentence: "This project demonstrates feasibility and modeling rather than immediate
+            quantum supremacy."</div>
+    </div>
+
+    <div class="slide-card">
+        <h2>🟦 Slide 13 — Limitations</h2>
+        <p>"Current limitations include:</p>
+        <ul>
+            <li>Running on a classical quantum simulator</li>
+            <li>Limited qubit availability on real hardware</li>
+            <li>Noise in real quantum devices</li>
+            <li>Small problem size for demonstration purposes</li>
+        </ul>
+        <p>We are fully transparent about these constraints."</p>
+        <div class="note">💡 Transparency = Credibility. Judges trust honest teams more than teams that overclaim.</div>
+    </div>
+
+    <div class="slide-card">
+        <h2>🟦 Slide 14 — Future Scope</h2>
+        <p>"In the future, we plan to:</p>
+        <ul>
+            <li>Integrate real-time traffic APIs</li>
+            <li>Scale the model to larger datasets</li>
+            <li>Test on IBM Quantum hardware</li>
+            <li>Explore alternative quantum algorithms (QAOA variants, VQE)</li>
+        </ul>
+        <p>This could enable real-time quantum-assisted emergency dispatch systems."</p>
+    </div>
+
+    <div class="slide-card">
+        <h2>🟦 Slide 15 — Conclusion</h2>
+        <p>"In conclusion, we demonstrated:</p>
+        <ul>
+            <li>Real-world problem modeling</li>
+            <li>QUBO mathematical formulation</li>
+            <li>QAOA-based quantum optimization</li>
+            <li>Classical vs Quantum comparison</li>
+            <li>Live interactive visualization</li>
+        </ul>
+        <p>This project bridges healthcare logistics and quantum computing."</p>
+        <div class="note">⏸ End confidently. Look at judges. Allow questions.</div>
+    </div>
+
+    <div class="final-box">
+        <h3>🎯 If You Present This, Judges Will See:</h3>
+        <ul>
+            <li>You understand the mathematics behind QUBO / QAOA</li>
+            <li>You are honest about simulator vs real hardware limitations</li>
+            <li>You are not exaggerating quantum advantage</li>
+            <li>You have a technically sound, verifiable project</li>
+            <li>You can defend every design decision confidently</li>
+        </ul>
+    </div>
+
+    <div class="page-footer">
+        Quantum Priority Ambulance Dispatch — Hackathon 2026
+    </div>
+</body>
+
+</html>
