@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Judge FAQ — Quantum Ambulance Dispatch</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --bg: #050810;
+            --surface: #0f1525;
+            --surface2: #131929;
+            --border: #1a2440;
+            --text: #e8f0fe;
+            --muted: #7a8aaa;
+            --accent: #00e676;
+            --accent-glow: rgba(0, 230, 118, 0.3);
+            --quantum: #448aff;
+            --quantum-glow: rgba(68, 138, 255, 0.25);
+            --warn: #f0a500;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #050810 0%, #080c18 60%, #050810 100%);
+            background-attachment: fixed;
+            color: var(--text);
+            line-height: 1.7;
+        }
+
+        /* Navbar */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 999;
+            background: rgba(5, 8, 16, 0.8);
+            backdrop-filter: blur(18px);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .nav-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            height: 64px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .nav-logo {
+            font-size: 1.15rem;
+            font-weight: 800;
+            color: var(--text);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .nav-logo span {
+            background: linear-gradient(90deg, #e8f0fe, #00e676);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 0.4rem;
+        }
+
+        .nav-link {
+            color: var(--muted);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            padding: 0.35rem 0.8rem;
+            border-radius: 6px;
+            transition: 0.2s;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            color: var(--text);
+            background: rgba(255, 255, 255, 0.06);
+        }
+
+        /* Header */
+        .page-header {
+            text-align: center;
+            padding: 120px 2rem 60px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .page-header h1 {
+            font-size: 2.4rem;
+            font-weight: 900;
+            background: linear-gradient(90deg, #e8f0fe, #00e676);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.6rem;
+        }
+
+        .page-header p {
+            color: var(--muted);
+            font-size: 1.05rem;
+        }
+
+        /* FAQ Container */
+        .faq-container {
+            max-width: 860px;
+            margin: 0 auto;
+            padding: 0 2rem 80px;
+        }
+
+        /* Category Label */
+        .cat-label {
+            font-size: 0.78rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.14em;
+            color: var(--accent);
+            margin: 3rem 0 1.2rem;
+            padding-left: 0.2rem;
+        }
+
+        .cat-label.quantum-cat {
+            color: var(--quantum);
+        }
+
+        /* FAQ Card */
+        .faq-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            margin-bottom: 1rem;
+            overflow: hidden;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+
+        .faq-card:hover {
+            border-color: rgba(0, 230, 118, 0.2);
+            box-shadow: 0 0 20px rgba(0, 230, 118, 0.04);
+        }
+
+        .faq-card.quantum:hover {
+            border-color: rgba(68, 138, 255, 0.25);
+            box-shadow: 0 0 20px rgba(68, 138, 255, 0.06);
+        }
+
+        .faq-q {
+            padding: 1.2rem 1.5rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-weight: 700;
+            font-size: 1rem;
+            user-select: none;
+        }
+
+        .faq-q .q-icon {
+            font-size: 0.85rem;
+            color: var(--accent);
+            transition: transform 0.3s;
+        }
+
+        .faq-card.quantum .q-icon {
+            color: var(--quantum);
+        }
+
+        .faq-card.open .q-icon {
+            transform: rotate(45deg);
+        }
+
+        .faq-a {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease, padding 0.3s ease;
+            padding: 0 1.5rem;
+        }
+
+        .faq-card.open .faq-a {
+            max-height: 1200px;
+            padding: 0 1.5rem 1.5rem;
+        }
+
+        .faq-a p {
+            color: var(--muted);
+            font-size: 0.92rem;
+            line-height: 1.8;
+            margin-bottom: 0.8rem;
+        }
+
+        .faq-a p strong {
+            color: var(--text);
+        }
+
+        .faq-a code {
+            background: var(--surface2);
+            border: 1px solid var(--border);
+            padding: 0.15rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            color: var(--accent);
+            font-family: 'Courier New', monospace;
+        }
+
+        .faq-a .code-block {
+            display: block;
+            background: var(--surface2);
+            border: 1px solid var(--border);
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 0.8rem 0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.85rem;
+            color: var(--accent);
+            white-space: pre-wrap;
+            line-height: 1.6;
+        }
+
+        .faq-a .tip {
+            background: rgba(0, 230, 118, 0.05);
+            border-left: 3px solid var(--accent);
+            padding: 0.6rem 1rem;
+            border-radius: 4px;
+            margin: 0.8rem 0;
+            font-size: 0.88rem;
+            color: var(--accent);
+        }
+
+        .faq-a .warn {
+            background: rgba(240, 165, 0, 0.06);
+            border-left: 3px solid var(--warn);
+            padding: 0.6rem 1rem;
+            border-radius: 4px;
+            margin: 0.8rem 0;
+            font-size: 0.88rem;
+            color: var(--warn);
+        }
+
+        /* Footer */
+        .page-footer {
+            text-align: center;
+            color: var(--muted);
+            font-size: 0.82rem;
+            padding: 2rem;
+            border-top: 1px solid var(--border);
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="nav-inner">
+            <a href="index.html" class="nav-logo">🚑 <span>QuantumDispatch</span></a>
+            <ul class="nav-links">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="index.html#dashboard" class="nav-link">Dashboard</a></li>
+                <li><a href="speaker-notes.html" class="nav-link">🎤 Notes</a></li>
+                <li><a href="faq.html" class="nav-link active">❓ FAQ</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="page-header">
+        <h1>❓ Judge Q&A — FAQ</h1>
+        <p>Top questions judges ask at Quantum Hackathons — with honest, confident, implementation-backed answers.</p>
+    </div>
+
+    <div class="faq-container">
+
+        <!-- ========== CATEGORY: QUANTUM FUNDAMENTALS ========== -->
+        <div class="cat-label quantum-cat">⚛️ Quantum Fundamentals</div>
+
+        <div class="faq-card quantum">
+            <div class="faq-q">Q1. What is QUBO and why did you use it? <span class="q-icon">＋</span></div>
+            <div class="faq-a">
+                <p><strong>QUBO</strong> stands for <strong>Quadratic Unconstrained Binary Optimization</strong>. It is
+                    a mathematical formulation where we express our optimization problem as a quadratic function over
+                    binary (0 or 1) variables.</p>
+                <p>We use it because <strong>QAOA and quantum annealing operate naturally on quadratic binary
+                        formulations</strong>. Our ambulance assignment problem has binary decisions — ambulance i is
+                    either assigned to patient j (1) or not (0).</p>
+                <p><strong>In our code</strong> (<code>api.py</code>), we use Qiskit's
+                    <code>QuadraticProgramToQubo()</code> converter to transform our constrained problem into pure QUBO
+                    form:</p>
+                <div class="code-block">qp = QuadraticProgram()
+                    for a in ambulances:
+                    for p in patients:
+                    qp.binary_var(f"x_{a}_{p}")
+
+                    # Constraints → converted to penalty terms in QUBO
+                    qubo = QuadraticProgramToQubo().convert(qp)</div>
+                <div class="tip">💡 Say this: "QUBO is the mathematical bridge between our real-world problem and the
+                    quantum processor."</div>
+            </div>
+        </div>
+
+        <div class="faq-card quantum">
+            <div class="faq-q">Q2. What is QAOA and how does it work? <span class="q-icon">＋</span></div>
+            <div class="faq-a">
+                <p><strong>QAOA</strong> = Quantum Approximate Optimization Algorithm. It is a <strong>hybrid
+                        quantum-classical</strong> algorithm:</p>
+                <p><strong>Step 1:</strong> A parameterized quantum circuit is created with alternating "cost" and
+                    "mixer" layers.</p>
+                <p><strong>Step 2:</strong> The quantum circuit is executed, and we measure the output bitstrings.</p>
+                <p><strong>Step 3:</strong> A classical optimizer (COBYLA in our case) adjusts the circuit parameters to
+                    minimize the cost function.</p>
+                <p><strong>Steps 2–3 repeat</strong> until convergence.</p>
+                <div class="code-block">from qiskit_algorithms import QAOA
+                    from qiskit_algorithms.optimizers import COBYLA
+
+                    qaoa = QAOA(sampler=sampler, optimizer=COBYLA(maxiter=3), reps=1)
+                    result = MinimumEigenOptimizer(qaoa).solve(qubo)</div>
+                <p><strong>Why QAOA?</strong> It is specifically designed for combinatorial optimization problems like
+                    ours. It works on current noisy quantum hardware (NISQ devices).</p>
+            </div>
+        </div>
+
+        <div class="faq-card quantum">
+            <div class="faq-q">Q3. Are you running this on real quantum hardware? <span class="q-icon">＋</span></div>
+            <div class="faq-a">
+                <p><strong>Honest answer:</strong> Currently, we run QAOA on Qiskit's <strong>quantum simulator</strong>
+                    (<code>Sampler</code>), not real quantum hardware.</p>
+                <p><strong>Why?</strong> IBM Quantum free access has queue times, limited qubits, and noise. For a live
+                    demo, the simulator provides consistent, reliable results.</p>
+                <p><strong>Important:</strong> Our code is <strong>fully compatible</strong> with real IBM Quantum
+                    backends. We only need to swap the <code>Sampler</code> with an IBM backend session — zero code
+                    changes to the algorithm.</p>
+                <div class="warn">⚠️ Be honest about this. Judges respect transparency far more than exaggeration. Say:
+                    "We run on a simulator for demo reliability, but the code is hardware-ready."</div>
+            </div>
+        </div>
+
+        <div class="faq-card quantum">
+            <div class="faq-q">Q4. What is the quantum advantage here? <span class="q-icon">＋</span></div>
+            <div class="faq-a">
+                <p><strong>Classical brute-force complexity:</strong> O(N!) — grows factorially. At N=20, that's 2.4
+                    quintillion operations.</p>
+                <p><strong>Quantum QAOA complexity:</strong> Scales approximately as O(poly(N)) for finding near-optimal
+                    solutions.</p>
+                <p><strong>At small N (our demo):</strong> Classical is faster. This is expected because simulating
+                    qubits on a classical computer is computationally expensive.</p>
+                <p><strong>At large N (real hardware):</strong> Quantum advantage is expected to emerge because quantum
+                    circuits execute in parallel across qubit superposition states.</p>
+                <div class="tip">💡 Say: "Quantum advantage is a scaling argument, not a small-N argument. Our project
+                    demonstrates the correct mathematical pipeline."</div>
+            </div>
+        </div>
+
+        <!-- ========== CATEGORY: IMPLEMENTATION ========== -->
+        <div class="cat-label">🛠️ Implementation Details</div>
+
+        <div class="faq-card">
+            <div class="faq-q">Q5. How does your cost model work? <span class="q-icon">＋</span></div>
+            <div class="faq-a">
+                <p>Our cost function is: <strong>Cost = Distance × Traffic × Severity</strong></p>
+                <p><strong>Distance:</strong> Base travel distance (in km) from ambulance to patient — stored in a
+                    pre-defined distance matrix in <code>api.py</code>.</p>
+                <p><strong>Traffic:</strong> A congestion multiplier (1.0 to 5.0) applied uniformly across all routes.
+                </p>
+                <p><strong>Severity:</strong> Per-patient severity level (1=Low to 5=Critical). High severity increases
+                    the effective cost of delay, forcing the optimizer to prioritize critical patients.</p>
+                <div class="code-block">cost = base_distance * traffic * severity
+                    # Example: A1→E1 = 6km × 2.0 traffic × 3 severity = 36.0</div>
+            </div>
+        </div>
+
+        <div class="faq-card">
+            <div class="faq-q">Q6. What are the constraints in your optimization? <span class="q-icon">＋</span></div>
+            <div class="faq-a">
+                <p>We enforce <strong>two types of constraints</strong> to ensure a valid one-to-one assignment:</p>
+                <p><strong>1. Row constraint:</strong> Each ambulance is assigned to exactly one patient → Σⱼ x(i,j) = 1
+                    for each ambulance i</p>
+                <p><strong>2. Column constraint:</strong> Each patient is served by exactly one ambulance → Σᵢ x(i,j) =
+                    1 for each patient j</p>
+                <p>In code, these are added as linear equality constraints to the <code>QuadraticProgram</code>, then
+                    the QUBO converter transforms them into <strong>penalty terms</strong> — large cost additions that
+                    "punish" invalid assignments.</p>
+                <div class="code-block">for a in ambulances:
+                    qp.linear_constraint(
+                    linear={f"x_{a}_{p}": 1 for p in patients},
+                    sense="==", rhs=1
+                    )
+                    for p in patients:
+                    qp.linear_constraint(
+                    linear={f"x_{a}_{p}": 1 for a in ambulances},
+                    sense="==", rhs=1
+                    )</div>
+            </div>
+        </div>
+
+        <div class="faq-card">
+            <div class="faq-q">Q7. What technology stack did you use? <span class="q-icon">＋</span></div>
+            <div class="faq-a">
+                <p><strong>Backend (Quantum Engine):</strong></p>
+                <p>• Python 3.x + Qiskit (quantum SDK)<br>
+                    • <code>qiskit-optimization</code> for QUBO conversion<br>
+                    • <code>qiskit-algorithms</code> for QAOA<br>
+                    • FastAPI + Uvicorn as the REST API server<br>
+                    • COBYLA classical optimizer</p>
+                <p><strong>Frontend (Visualization):</strong></p>
+                <p>• HTML5, CSS3, JavaScript<br>
+                    • Chart.js for bar/line charts<br>
+                    • Canvas API for the dispatch graph<br>
+                    • Firebase Hosting for deployment</p>
+                <p><strong>Architecture:</strong> Decoupled — JavaScript frontend sends parameters via REST API to the
+                    Python backend, which runs the actual quantum algorithm and returns results.</p>
+            </div>
+        </div>
+
+        <div class="faq-card">
+            <div class="faq-q">Q8. Why did you use FastAPI instead of running Qiskit directly in the browser? <span
+                    class="q-icon">＋</span></div>
+            <div class="faq-a">
+                <p><strong>Qiskit is a Python library</strong> — it cannot run in a web browser. Browsers only execute
+                    JavaScript natively.</p>
+                <p>Therefore, we built a <strong>decoupled architecture</strong>:</p>
+                <p>• The <strong>Python backend</strong> (<code>api.py</code>) handles all quantum computation via
+                    Qiskit</p>
+                <p>• The <strong>JavaScript frontend</strong> handles user interaction and visualization</p>
+                <p>• They communicate via <strong>HTTP REST API</strong> (POST /solve, GET /circuit)</p>
+                <p>This is the <strong>industry-standard pattern</strong> used by companies like Google, IBM, and OpenAI
+                    — a lightweight frontend talks to a powerful AI/ML backend.</p>
+            </div>
+        </div>
+
+        <!-- ========== CATEGORY: RESULTS ========== -->
+        <div class="cat-label">📊 Results & Validation</div>
+
+        <div class="faq-card">
+            <div class="faq-q">Q9. Why is quantum slower than classical in your demo? <span class="q-icon">＋</span>
+            </div>
+            <div class="faq-a">
+                <p>This is the <strong>most common judge question</strong>, and the answer is important:</p>
+                <p><strong>We are running QAOA on a quantum simulator</strong> — meaning a classical computer is
+                    simulating quantum behavior. Simulating quantum states requires exponential classical resources (2ⁿ
+                    amplitudes for n qubits).</p>
+                <p>Meanwhile, classical brute-force on a small 2×2 or 3×3 problem only needs a few permutations.</p>
+                <p><strong>On real quantum hardware:</strong> The quantum circuit executes natively in microseconds via
+                    superposition. The advantage emerges when N grows large enough that N! becomes intractable.</p>
+                <div class="tip">💡 Say: "Simulating quantum on classical hardware is like running an airplane simulator
+                    on a bicycle — it works, but it's slower than actually flying."</div>
+            </div>
+        </div>
+
+        <div class="faq-card">
+            <div class="faq-q">Q10. How do you validate that the quantum result is correct? <span
+                    class="q-icon">＋</span></div>
+            <div class="faq-a">
+                <p>We use <strong>dual verification</strong>:</p>
+                <p><strong>1. Classical brute-force baseline:</strong> We compute the exact optimal solution by checking
+                    all N! permutations. This gives us the mathematically proven minimum cost.</p>
+                <p><strong>2. Quantum QAOA result:</strong> We compare the QAOA output against the brute-force result.
+                    If both assignments match (or have equal cost), the quantum solver found the correct optimum.</p>
+                <p>Both results are displayed <strong>side-by-side</strong> on the dashboard with their costs and
+                    execution times for full transparency.</p>
+            </div>
+        </div>
+
+        <div class="faq-card">
+            <div class="faq-q">Q11. What does the quantum circuit image show? <span class="q-icon">＋</span></div>
+            <div class="faq-a">
+                <p>The circuit image is generated directly from <strong>Qiskit's circuit.draw()</strong> function. It
+                    shows:</p>
+                <p>• <strong>Qubit lines (q₀, q₁, ...)</strong> — each representing a binary decision variable x(i,j)
+                </p>
+                <p>• <strong>Cost layer gates</strong> — encode the QUBO objective function</p>
+                <p>• <strong>Mixer layer gates</strong> — allow exploration of different assignments</p>
+                <p>• <strong>Parameters (γ, β)</strong> — optimized by the classical COBYLA optimizer</p>
+                <p>This is the <strong>undeniable proof</strong> that real quantum computation is happening — judges can
+                    see actual qubit gates, not just a classical algorithm pretending to be quantum.</p>
+                <div class="code-block"># Generated via:
+                    circuit = qaoa.ansatz.decompose()
+                    fig = circuit.draw(output='mpl')</div>
+            </div>
+        </div>
+
+        <!-- ========== CATEGORY: SCALABILITY & FUTURE ========== -->
+        <div class="cat-label quantum-cat">🚀 Scalability & Future</div>
+
+        <div class="faq-card quantum">
+            <div class="faq-q">Q12. Can this scale to real-world city-level dispatch? <span class="q-icon">＋</span>
+            </div>
+            <div class="faq-a">
+                <p><strong>Currently:</strong> Our demo supports 2–4 ambulances/patients. This is limited by
+                    <strong>simulator qubit capacity</strong> (each N×N problem needs N² qubits).</p>
+                <p><strong>Near future (5–10 years):</strong> IBM's roadmap targets 100,000+ qubits by 2033. At that
+                    scale, our exact architecture could handle city-level dispatch with hundreds of ambulances.</p>
+                <p><strong>Hybrid approach (today):</strong> For larger problems, techniques like <strong>problem
+                        decomposition</strong> and <strong>warm-starting QAOA</strong> can handle bigger instances on
+                    current hardware.</p>
+            </div>
+        </div>
+
+        <div class="faq-card quantum">
+            <div class="faq-q">Q13. What would you improve with more time? <span class="q-icon">＋</span></div>
+            <div class="faq-a">
+                <p><strong>1. Real quantum hardware:</strong> Connect to IBM Quantum via
+                    <code>IBMQ.load_account()</code> for authentic execution.</p>
+                <p><strong>2. Real-time traffic API:</strong> Integrate Google Maps or TomTom API for live traffic data
+                    instead of a slider.</p>
+                <p><strong>3. Larger scale:</strong> Support 10+ ambulances using decomposition or VQE alternatives.</p>
+                <p><strong>4. GPS coordinates:</strong> Replace the pre-defined distance matrix with real geographical
+                    distances.</p>
+                <p><strong>5. Multi-objective:</strong> Add inter-hospital transfer, ambulance return-to-base, and
+                    multi-wave dispatch.</p>
+            </div>
+        </div>
+
+        <div class="faq-card">
+            <div class="faq-q">Q14. Is this just a web development project pretending to be quantum? <span
+                    class="q-icon">＋</span></div>
+            <div class="faq-a">
+                <p><strong>No.</strong> The web interface is only the visualization layer. The core of the project is
+                    the <strong>Python backend</strong> (<code>api.py</code>) which contains:</p>
+                <p>• Real <strong>QUBO formulation</strong> using <code>qiskit-optimization.QuadraticProgram</code></p>
+                <p>• Real <strong>QAOA execution</strong> using <code>qiskit-algorithms.QAOA</code></p>
+                <p>• Real <strong>quantum circuit generation</strong> viewable in the circuit image</p>
+                <p>The website simply sends parameters and displays results. All quantum computation happens in
+                    Python/Qiskit. You can verify this by reading <code>api.py</code> line by line — every quantum
+                    import and operation is genuine.</p>
+                <div class="tip">💡 Say: "Our website is the steering wheel. The quantum engine is under the hood. Open
+                    api.py — every line is verifiable Qiskit code."</div>
+            </div>
+        </div>
+
+        <div class="faq-card">
+            <div class="faq-q">Q15. What makes your project different from other hackathon quantum projects? <span
+                    class="q-icon">＋</span></div>
+            <div class="faq-a">
+                <p><strong>1. Real-world application:</strong> Emergency dispatch is a genuine, urgent problem — not an
+                    abstract toy example.</p>
+                <p><strong>2. Full pipeline:</strong> We show the complete flow from problem modeling → QUBO → QAOA →
+                    result, not just one step.</p>
+                <p><strong>3. Honest comparison:</strong> We show both classical and quantum results side-by-side,
+                    including where quantum is currently slower — proving scientific rigor.</p>
+                <p><strong>4. Interactive live demo:</strong> Judges can change parameters, add/remove ambulances, and
+                    see real-time quantum results — not just a static presentation.</p>
+                <p><strong>5. Transparency:</strong> Cost heatmap, quantum circuit, and scalability chart provide full
+                    visibility into every computation step.</p>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="page-footer">
+        Quantum Priority Ambulance Dispatch — Hackathon 2026 · <a href="index.html" style="color:#00e676;">Back to
+            Dashboard</a>
+    </div>
+
+    <script>
+        document.querySelectorAll('.faq-q').forEach(q => {
+            q.addEventListener('click', () => {
+                const card = q.parentElement;
+                const wasOpen = card.classList.contains('open');
+                // Close all
+                document.querySelectorAll('.faq-card.open').forEach(c => c.classList.remove('open'));
+                // Toggle clicked
+                if (!wasOpen) card.classList.add('open');
+            });
+        });
+    </script>
+</body>
+
+</html>
