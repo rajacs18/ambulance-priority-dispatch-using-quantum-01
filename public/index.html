@@ -115,6 +115,14 @@
         <div class="dashboard-layout">
             <!-- Controls Panel -->
             <div class="controls-panel">
+                <!-- Live Engine Status -->
+                <div class="engine-status" id="engine-status">
+                    <div class="status-dot offline" id="status-dot"></div>
+                    <div class="status-text">
+                        <span class="status-label" id="status-label">⚠️ Engine Offline</span>
+                        <span class="status-hint" id="status-hint">Run <code>python api.py</code></span>
+                    </div>
+                </div>
                 <h3 class="panel-title">⚙️ Parameters</h3>
 
                 <!-- Ambulance Selection -->

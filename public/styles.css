@@ -434,12 +434,89 @@ body {
     background: var(--surface);
     border: 1px solid var(--border);
     border-radius: var(--radius);
-    padding: 2rem;
+    padding: 1.5rem;
     display: flex;
     flex-direction: column;
-    gap: 1.5rem;
+    gap: 1.2rem;
     position: sticky;
-    top: 88px;
+    top: 80px;
+    max-height: calc(100vh - 100px);
+    overflow-y: auto;
+}
+
+/* Engine Status Indicator */
+.engine-status {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    padding: 0.7rem 1rem;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    transition: all 0.4s ease;
+}
+
+.engine-status.online {
+    background: rgba(0, 230, 118, 0.06);
+    border-color: rgba(0, 230, 118, 0.3);
+}
+
+.engine-status.offline {
+    background: rgba(255, 82, 82, 0.06);
+    border-color: rgba(255, 82, 82, 0.25);
+}
+
+.status-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    transition: all 0.3s;
+}
+
+.status-dot.online {
+    background: #00e676;
+    box-shadow: 0 0 8px rgba(0, 230, 118, 0.6), 0 0 20px rgba(0, 230, 118, 0.3);
+    animation: statusPulse 2s ease infinite;
+}
+
+.status-dot.offline {
+    background: #ff5252;
+    box-shadow: 0 0 8px rgba(255, 82, 82, 0.5);
+}
+
+@keyframes statusPulse {
+
+    0%,
+    100% {
+        box-shadow: 0 0 8px rgba(0, 230, 118, 0.6), 0 0 20px rgba(0, 230, 118, 0.3);
+    }
+
+    50% {
+        box-shadow: 0 0 12px rgba(0, 230, 118, 0.8), 0 0 30px rgba(0, 230, 118, 0.4);
+    }
+}
+
+.status-text {
+    display: flex;
+    flex-direction: column;
+    gap: 0.1rem;
+}
+
+.status-label {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--text);
+}
+
+.status-hint {
+    font-size: 0.72rem;
+    color: var(--muted);
+}
+
+.status-hint code {
+    color: var(--accent);
+    font-family: monospace;
+    font-weight: 600;
 }
 
 .panel-title {

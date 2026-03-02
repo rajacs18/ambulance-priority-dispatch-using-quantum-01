@@ -7,6 +7,39 @@ window.addEventListener('scroll', () => {
 });
 
 // ============================================================
+// LIVE ENGINE STATUS CHECK
+// ============================================================
+const statusDot = document.getElementById('status-dot');
+const statusLabel = document.getElementById('status-label');
+const statusHint = document.getElementById('status-hint');
+const engineStatus = document.getElementById('engine-status');
+let apiOnline = false;
+
+async function checkHealth() {
+    try {
+        const res = await fetch('http://localhost:8000/health', { signal: AbortSignal.timeout(2000) });
+        if (res.ok) {
+            const data = await res.json();
+            apiOnline = true;
+            statusDot.className = 'status-dot online';
+            statusLabel.textContent = '✅ Quantum Engine Online';
+            statusHint.innerHTML = `${data.engine} · Ready`;
+            engineStatus.className = 'engine-status online';
+        } else { throw new Error(); }
+    } catch {
+        apiOnline = false;
+        statusDot.className = 'status-dot offline';
+        statusLabel.textContent = '⚠️ Engine Offline';
+        statusHint.innerHTML = 'Run <code>python api.py</code>';
+        engineStatus.className = 'engine-status offline';
+    }
+}
+
+// Check immediately, then every 3 seconds
+checkHealth();
+setInterval(checkHealth, 3000);
+
+// ============================================================
 // UNIT CARD TOGGLE (click to select/deselect)
 // ============================================================
 document.querySelectorAll('.unit-card').forEach(card => {

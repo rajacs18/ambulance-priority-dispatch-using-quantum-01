@@ -40,6 +40,12 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+
+@app.get("/health")
+def health_check():
+    return {"status": "online", "engine": "Qiskit QAOA", "version": "1.0"}
+
+
 # ─── Base Distance Matrix (expandable up to A4 x E4) ───────────────────────
 FULL_DISTANCES: Dict[str, Dict[str, int]] = {
     "A1": {"E1": 6,  "E2": 10, "E3": 14, "E4": 9},
