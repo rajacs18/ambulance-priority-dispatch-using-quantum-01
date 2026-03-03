@@ -83,9 +83,10 @@ def solve_dispatch(req: OptimizationRequest):
             raise HTTPException(status_code=400, detail="No patients selected.")
 
         # Limit to square for balanced assignment (use min)
-        n = min(len(ambulances), len(patients))
-        ambulances = ambulances[:n]
-        patients = patients[:n]
+        # REMOVED to allow non-square assignment
+        # n = min(len(ambulances), len(patients))
+        # ambulances = ambulances[:n]
+        # patients = patients[:n]
 
         # Build cost matrix
         cost_matrix: Dict[tuple, float] = {}
@@ -104,13 +105,22 @@ def solve_dispatch(req: OptimizationRequest):
         best_cost = float("inf")
         best_assign: Dict[str, str] = {}
 
-        for perm in itertools.permutations(patients):
-            total = sum(cost_matrix[(a, p)] for a, p in zip(ambulances, perm))
-            if total < best_cost:
-                best_cost = total
-                best_assign = {a: p for a, p in zip(ambulances, perm)}
+        if len(ambulances) >= len(patients):
+            for p_ambs in itertools.permutations(ambulances, len(patients)):
+                total = sum(cost_matrix[(a, p)] for a, p in zip(p_ambs, patients))
+                if total < best_cost:
+                    best_cost = total
+                    best_assign = {a: p for a, p in zip(p_ambs, patients)}
+        else:
+            for p_pats in itertools.permutations(patients, len(ambulances)):
+                total = sum(cost_matrix[(a, p)] for a, p in zip(ambulances, p_pats))
+                if total < best_cost:
+                    best_cost = total
+                    best_assign = {a: p for a, p in zip(ambulances, p_pats)}
 
         classical_time = time.time() - t0
+        if classical_time < 0.0001:
+            classical_time = 0.0001
 
         # ── QUBO / QAOA ───────────────────────────────────────────────────
         qp = QuadraticProgram()
@@ -120,10 +130,16 @@ def solve_dispatch(req: OptimizationRequest):
 
         qp.minimize(linear={f"x_{a}_{p}": cost_matrix[(a, p)] for a in ambulances for p in patients})
 
-        for a in ambulances:
-            qp.linear_constraint(linear={f"x_{a}_{p}": 1 for p in patients}, sense="==", rhs=1)
-        for p in patients:
-            qp.linear_constraint(linear={f"x_{a}_{p}": 1 for a in ambulances}, sense="==", rhs=1)
+        if len(ambulances) >= len(patients):
+            for p in patients:
+                qp.linear_constraint(linear={f"x_{a}_{p}": 1 for a in ambulances}, sense="==", rhs=1)
+            for a in ambulances:
+                qp.linear_constraint(linear={f"x_{a}_{p}": 1 for p in patients}, sense="<=", rhs=1)
+        else:
+            for a in ambulances:
+                qp.linear_constraint(linear={f"x_{a}_{p}": 1 for p in patients}, sense="==", rhs=1)
+            for p in patients:
+                qp.linear_constraint(linear={f"x_{a}_{p}": 1 for a in ambulances}, sense="<=", rhs=1)
 
         qubo = QuadraticProgramToQubo().convert(qp)
 
@@ -153,9 +169,12 @@ def solve_dispatch(req: OptimizationRequest):
             quantum_time = time.time() - t1
 
         # fallback if QAOA fails or returns invalid assignment
-        if len(quantum_assign) < n:
+        if len(quantum_assign) < min(len(ambulances), len(patients)):
             quantum_assign = best_assign
             quantum_cost = best_cost
+
+        if quantum_time < 0.0001:
+            quantum_time = 0.0001
 
         return {
             "classical": {
