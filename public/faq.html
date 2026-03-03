@@ -280,6 +280,7 @@
                 <li><a href="index.html#dashboard" class="nav-link">Dashboard</a></li>
                 <li><a href="speaker-notes.html" class="nav-link">🎤 Notes</a></li>
                 <li><a href="faq.html" class="nav-link active">❓ FAQ</a></li>
+                <li><a href="faq-m1.html" class="nav-link">🎯 M1</a></li>
             </ul>
         </div>
     </nav>
@@ -290,6 +291,19 @@
     </div>
 
     <div class="faq-container">
+
+        <!-- Simplified Version Link -->
+        <div
+            style="background:var(--surface2); border: 1px solid var(--quantum); padding: 1.5rem; border-radius: 14px; margin-bottom: 2rem; display: flex; align-items: center; justify-content: space-between; gap: 1rem;">
+            <div>
+                <h4 style="margin:0; color:var(--text);">🎯 Member 1 — Quick Cheat Sheet</h4>
+                <p style="margin:0.2rem 0 0; font-size: 0.85rem; color:var(--muted);">Crisp, jargon-free answers for
+                    non-technical judges.</p>
+            </div>
+            <a href="faq-m1.html"
+                style="background:var(--quantum); color:white; padding: 0.6rem 1.2rem; border-radius: 8px; text-decoration: none; font-weight: 700; font-size: 0.85rem; white-space: nowrap;">Open
+                Cheat Sheet →</a>
+        </div>
 
         <!-- ========== CATEGORY: QUANTUM FUNDAMENTALS ========== -->
         <div class="cat-label quantum-cat">⚛️ Quantum Fundamentals</div>
@@ -305,7 +319,8 @@
                     either assigned to patient j (1) or not (0).</p>
                 <p><strong>In our code</strong> (<code>api.py</code>), we use Qiskit's
                     <code>QuadraticProgramToQubo()</code> converter to transform our constrained problem into pure QUBO
-                    form:</p>
+                    form:
+                </p>
                 <div class="code-block">qp = QuadraticProgram()
                     for a in ambulances:
                     for p in patients:
@@ -506,7 +521,8 @@
             </div>
             <div class="faq-a">
                 <p><strong>Currently:</strong> Our demo supports 2–4 ambulances/patients. This is limited by
-                    <strong>simulator qubit capacity</strong> (each N×N problem needs N² qubits).</p>
+                    <strong>simulator qubit capacity</strong> (each N×N problem needs N² qubits).
+                </p>
                 <p><strong>Near future (5–10 years):</strong> IBM's roadmap targets 100,000+ qubits by 2033. At that
                     scale, our exact architecture could handle city-level dispatch with hundreds of ambulances.</p>
                 <p><strong>Hybrid approach (today):</strong> For larger problems, techniques like <strong>problem
@@ -519,7 +535,8 @@
             <div class="faq-q">Q13. What would you improve with more time? <span class="q-icon">＋</span></div>
             <div class="faq-a">
                 <p><strong>1. Real quantum hardware:</strong> Connect to IBM Quantum via
-                    <code>IBMQ.load_account()</code> for authentic execution.</p>
+                    <code>IBMQ.load_account()</code> for authentic execution.
+                </p>
                 <p><strong>2. Real-time traffic API:</strong> Integrate Google Maps or TomTom API for live traffic data
                     instead of a slider.</p>
                 <p><strong>3. Larger scale:</strong> Support 10+ ambulances using decomposition or VQE alternatives.</p>

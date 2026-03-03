@@ -1,10 +1,35 @@
 // ============================================================
-// NAVBAR SCROLL EFFECT
+// NAVBAR & MOBILE MENU
 // ============================================================
 const navbar = document.getElementById('navbar');
+const navToggle = document.getElementById('nav-toggle');
+const navLinks = document.querySelector('.nav-links');
+
+const heroSection = document.getElementById('hero');
+
+// Scroll event listener for navbar
 window.addEventListener('scroll', () => {
-    navbar.classList.toggle('scrolled', window.scrollY > 40);
+    if (window.scrollY > 40) {
+        navbar.style.display = 'none';
+    } else {
+        navbar.style.display = ''; // Reset to default when at top
+    }
 });
+
+if (navToggle) {
+    navToggle.addEventListener('click', () => {
+        navLinks.classList.toggle('active');
+        navToggle.textContent = navLinks.classList.contains('active') ? '✕' : '☰';
+    });
+
+    // Close menu when clicking a link
+    document.querySelectorAll('.nav-link').forEach(link => {
+        link.addEventListener('click', () => {
+            navLinks.classList.remove('active');
+            navToggle.textContent = '☰';
+        });
+    });
+}
 
 // ============================================================
 // LIVE ENGINE STATUS CHECK
@@ -112,10 +137,13 @@ function gradientColor(value, min, max) {
 // ============================================================
 // DRAW DISPATCH GRAPH (Canvas)
 // ============================================================
-function drawGraph(ambulances, patients, distances, quantumAssign, classicalAssign) {
+function drawGraph(costMatrix, quantumAssign, classicalAssign) {
     const canvas = document.getElementById('graphCanvas');
     const ctx = canvas.getContext('2d');
     ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    const ambulances = Object.keys(costMatrix);
+    const patients = ambulances.length > 0 ? Object.keys(costMatrix[ambulances[0]]) : [];
 
     // Dynamic positions
     const positions = {};
@@ -128,13 +156,13 @@ function drawGraph(ambulances, patients, distances, quantumAssign, classicalAssi
     patients.forEach((p, i) => { positions[p] = { x: rightX, y: patYs[i] }; });
 
     // Get distance range for color gradient
-    const allDists = ambulances.flatMap(a => patients.map(p => (distances[a] || {})[p] || 5));
-    const minD = Math.min(...allDists), maxD = Math.max(...allDists);
+    const allCosts = ambulances.flatMap(a => patients.map(p => costMatrix[a][p]));
+    const minD = Math.min(...allCosts), maxD = Math.max(...allCosts);
 
     // Draw all edges
     for (const a of ambulances) {
         for (const p of patients) {
-            const dist = (distances[a] || {})[p] || 5;
+            const cost = costMatrix[a][p];
             const p1 = positions[a], p2 = positions[p];
 
             const isQuantum = quantumAssign[a] === p;
@@ -153,21 +181,24 @@ function drawGraph(ambulances, patients, distances, quantumAssign, classicalAssi
             ctx.beginPath();
             ctx.moveTo(p1.x, p1.y);
             ctx.lineTo(p2.x, p2.y);
-            ctx.strokeStyle = isQuantum ? '#448aff' : gradientColor(dist, minD, maxD);
+            ctx.strokeStyle = isQuantum ? '#448aff' : gradientColor(cost, minD, maxD);
             ctx.lineWidth = isQuantum ? 3.5 : 2;
             ctx.setLineDash(isQuantum ? [] : [5, 3]);
             ctx.stroke();
             ctx.setLineDash([]);
 
             // Label
-            const midX = (p1.x + p2.x) / 2;
-            const midY = (p1.y + p2.y) / 2;
-            const label = `${a}→${p}:${dist}`;
+            const aIndex = ambulances.indexOf(a);
+            const pIndex = patients.indexOf(p);
+            const t = 0.5 + Math.max(-0.4, Math.min(0.4, (aIndex - pIndex) * 0.08));
+            const midX = p1.x + (p2.x - p1.x) * t;
+            const midY = p1.y + (p2.y - p1.y) * t - 8;
+            const label = `${a}→${p}:${cost.toFixed(1)}`;
             ctx.font = '11px Inter';
             const tw = ctx.measureText(label).width;
-            ctx.fillStyle = '#1a2440';
+            ctx.fillStyle = '#ffffff';
             ctx.fillRect(midX - tw / 2 - 3, midY - 9, tw + 6, 18);
-            ctx.fillStyle = isQuantum ? '#448aff' : '#e8f0fe';
+            ctx.fillStyle = isQuantum ? '#000000' : '#6B5D61';
             ctx.textAlign = 'center';
             ctx.textBaseline = 'middle';
             ctx.fillText(label, midX, midY);
@@ -185,7 +216,7 @@ function drawGraph(ambulances, patients, distances, quantumAssign, classicalAssi
         ctx.strokeStyle = '#fff';
         ctx.stroke();
 
-        ctx.fillStyle = '#fff';
+        ctx.fillStyle = '#ffffff';
         ctx.font = 'bold 13px Inter';
         ctx.textAlign = 'center';
         ctx.textBaseline = 'middle';
@@ -247,8 +278,8 @@ function drawScalabilityChart() {
                 {
                     label: 'Classical O(N!)',
                     data: classical,
-                    borderColor: '#ff5252',
-                    backgroundColor: 'rgba(255,82,82,0.08)',
+                    borderColor: '#FF4D6D',
+                    backgroundColor: 'rgba(255, 77, 109, 0.1)',
                     borderWidth: 2.5,
                     pointRadius: 4,
                     tension: 0.3,
@@ -257,8 +288,8 @@ function drawScalabilityChart() {
                 {
                     label: 'Quantum ~O(N³)',
                     data: quantum,
-                    borderColor: '#448aff',
-                    backgroundColor: 'rgba(68,138,255,0.08)',
+                    borderColor: '#000000',
+                    backgroundColor: 'rgba(0, 0, 0, 0.05)',
                     borderWidth: 2.5,
                     pointRadius: 4,
                     tension: 0.3,
@@ -299,8 +330,8 @@ function updateTimeChart(classicalTime, quantumTime) {
             datasets: [{
                 label: 'Execution Time (s)',
                 data: [classicalTime, quantumTime],
-                backgroundColor: ['rgba(0,230,118,0.7)', 'rgba(68,138,255,0.7)'],
-                borderColor: ['#00e676', '#448aff'],
+                backgroundColor: ['rgba(255, 183, 197, 0.8)', 'rgba(0, 0, 0, 0.8)'],
+                borderColor: ['#FFB7C5', '#000000'],
                 borderWidth: 1.5,
                 borderRadius: 6,
             }]
@@ -311,11 +342,11 @@ function updateTimeChart(classicalTime, quantumTime) {
             scales: {
                 y: {
                     type: 'logarithmic',
-                    title: { display: true, text: 'Time (s)', color: '#7a8aaa' },
-                    ticks: { color: '#7a8aaa' },
-                    grid: { color: '#1a2440' }
+                    title: { display: true, text: 'Time (s)', color: '#6B5D61' },
+                    ticks: { color: '#6B5D61' },
+                    grid: { color: '#EDD2D8' }
                 },
-                x: { ticks: { color: '#7a8aaa' }, grid: { display: false } }
+                x: { ticks: { color: '#6B5D61' }, grid: { display: false } }
             },
             plugins: { legend: { display: false } }
         }
@@ -392,7 +423,7 @@ async function solve() {
 
         // Draw visuals
         updateTimeChart(data.classical.time, data.quantum.time);
-        drawGraph(ambulances, patients, data.distances, data.quantum.assignment, data.classical.assignment);
+        drawGraph(data.cost_matrix, data.quantum.assignment, data.classical.assignment);
         renderHeatmap(data.cost_matrix, data.quantum.assignment);
         drawScalabilityChart();
         fetchCircuitImage();
@@ -406,3 +437,13 @@ async function solve() {
 }
 
 runBtn.addEventListener('click', solve);
+
+// ============================================================
+// COLLAPSIBLE SECTIONS
+// ============================================================
+window.toggleSection = function (headerElement) {
+    const container = headerElement.closest('.collapsible-section');
+    if (container) {
+        container.classList.toggle('collapsed');
+    }
+};

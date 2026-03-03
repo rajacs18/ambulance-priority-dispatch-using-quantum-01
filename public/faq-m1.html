@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Member 1 — Quick Judge Q&A</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #FFF0F3;
+            --surface: #FFFFFF;
+            --surface2: #FFF5F7;
+            --border: #EDD2D8;
+            --text: #1A1A1A;
+            --text-muted: #6B5D61;
+            --accent: #FFB7C5;
+            --accent2: #000000;
+            --radius: 20px;
+            --shadow: 0 10px 40px rgba(255, 183, 197, 0.25);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            padding: 40px 20px 140px;
+        }
+
+        .header {
+            max-width: 1000px;
+            margin: 0 auto 40px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .back-btn {
+            text-decoration: none;
+            color: var(--text-muted);
+            font-weight: 600;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.6rem 1.2rem;
+            border-radius: 50px;
+            border: 1px solid var(--border);
+            background: var(--surface);
+            transition: 0.3s;
+        }
+
+        .back-btn:hover {
+            background: var(--surface2);
+            border-color: var(--accent);
+        }
+
+        .title-group h1 {
+            font-size: 2.5rem;
+            font-weight: 900;
+            letter-spacing: -0.04em;
+            margin-bottom: 0.5rem;
+        }
+
+        .member-badge {
+            display: inline-block;
+            background: var(--accent2);
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 1rem;
+        }
+
+        .qa-grid {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+            gap: 2rem;
+        }
+
+        @media (max-width: 600px) {
+            .qa-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .qa-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 2.5rem;
+            box-shadow: var(--shadow);
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            transition: transform 0.3s ease;
+        }
+
+        .qa-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .q-label {
+            font-size: 0.7rem;
+            font-weight: 800;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            margin-bottom: 0.5rem;
+        }
+
+        .question {
+            font-size: 1.3rem;
+            font-weight: 800;
+            line-height: 1.3;
+            color: var(--accent2);
+        }
+
+        .answer-box {
+            background: var(--surface2);
+            border-left: 4px solid var(--accent2);
+            padding: 1.5rem;
+            border-radius: 0 12px 12px 0;
+            font-size: 1.05rem;
+            font-weight: 500;
+            color: var(--text);
+        }
+
+        .answer-box blockquote {
+            font-style: normal;
+        }
+
+        .rules-bar {
+            position: fixed;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            width: calc(100% - 40px);
+            max-width: 800px;
+            background: var(--accent2);
+            color: white;
+            padding: 1.5rem 2rem;
+            border-radius: 20px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 2rem;
+            z-index: 100;
+        }
+
+        .rule-item {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .rule-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--accent);
+            border-radius: 50%;
+        }
+
+        @media (max-width: 768px) {
+            .rules-bar {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.8rem;
+                padding: 1.2rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="header">
+        <div class="title-group">
+            <span class="member-badge">Member 1 Edition</span>
+            <h1>Judge Flashcards</h1>
+        </div>
+        <a href="faq.html" class="back-btn">← Technical FAQ</a>
+    </div>
+
+    <div class="qa-grid">
+
+        <!-- Q1 -->
+        <div class="qa-card">
+            <div>
+                <div class="q-label">Question</div>
+                <h3 class="question">Why did you use quantum for this? Can't normal computers do it?</h3>
+            </div>
+            <div class="answer-box">
+                "Normal computers check each possible ambulance assignment one by one. As the city grows — more
+                ambulances, more emergencies — that becomes millions of combinations. Quantum explores all combinations
+                at the same time using superposition. That's the core reason."
+            </div>
+        </div>
+
+        <!-- Q2 -->
+        <div class="qa-card">
+            <div>
+                <div class="q-label">Question</div>
+                <h3 class="question">What exactly is QAOA doing in your project?</h3>
+            </div>
+            <div class="answer-box">
+                "QAOA takes our dispatch problem, converts it into a format quantum understands, runs it through a
+                quantum circuit, and outputs the best ambulance assignment as a binary answer — like 1010, meaning
+                ambulance 1 goes to emergency 1, ambulance 2 goes to emergency 2."
+            </div>
+        </div>
+
+        <!-- Q3 -->
+        <div class="qa-card">
+            <div>
+                <div class="q-label">Question</div>
+                <h3 class="question">What is superposition in your context?</h3>
+            </div>
+            <div class="answer-box">
+                "In our project, 4 qubits represent 4 assignment decisions. Superposition means all 16 possible
+                combinations exist simultaneously inside the circuit. QAOA processes all of them at once and picks the
+                best — classical would process them one by one."
+            </div>
+        </div>
+
+        <!-- Q4 -->
+        <div class="qa-card">
+            <div>
+                <div class="q-label">Question</div>
+                <h3 class="question">How does quantum know which answer is correct?</h3>
+            </div>
+            <div class="answer-box">
+                "We give it a cost function — a formula that scores every possible assignment based on travel time,
+                traffic, and patient severity. Quantum amplifies the low-cost solutions and suppresses the high-cost
+                ones. The answer with highest probability at the end is our optimal dispatch."
+            </div>
+        </div>
+
+        <!-- Q5 -->
+        <div class="qa-card">
+            <div>
+                <div class="q-label">Question</div>
+                <h3 class="question">Did quantum actually give a better answer than classical here?</h3>
+            </div>
+            <div class="answer-box">
+                "Both gave the same optimal answer — which is actually what we expected at small scale. It validates our
+                quantum model is correct. The real advantage shows when the problem scales to 20-30 ambulances — that's
+                where classical struggles and quantum doesn't."
+            </div>
+        </div>
+
+        <!-- Q6 -->
+        <div class="qa-card">
+            <div>
+                <div class="q-label">Question</div>
+                <h3 class="question">What is a qubit simply?</h3>
+            </div>
+            <div class="answer-box">
+                "A normal bit is 0 or 1 — like a light switch. A qubit is like a dimmer — it can be 0, 1, or both at the
+                same time until you measure it. That 'both at once' property is what gives quantum its power."
+            </div>
+        </div>
+
+        <!-- Q7 -->
+        <div class="qa-card">
+            <div>
+                <div class="q-label">Question</div>
+                <h3 class="question">What does the output of your quantum circuit look like?</h3>
+            </div>
+            <div class="answer-box">
+                "It gives a bitstring — like 1010. Each digit maps to one decision. 1 means assigned, 0 means not
+                assigned. We read it and directly know which ambulance goes to which emergency. It also shows a
+                probability chart — the tallest bar is the best solution."
+            </div>
+        </div>
+
+        <!-- Q8 -->
+        <div class="qa-card">
+            <div>
+                <div class="q-label">Question</div>
+                <h3 class="question">Is this practically usable in real life?</h3>
+            </div>
+            <div class="answer-box">
+                "Not yet in real-time — current quantum hardware is still maturing. But the algorithm and framework we
+                built is production-ready. When quantum hardware scales up in 5-7 years, this exact model can plug
+                directly into a city's emergency dispatch system."
+            </div>
+        </div>
+
+        <!-- Q9 -->
+        <div class="qa-card">
+            <div>
+                <div class="q-label">Question</div>
+                <h3 class="question">Why not just use Google Maps or a simple app?</h3>
+            </div>
+            <div class="answer-box">
+                "Google Maps finds the shortest route for one vehicle. Our problem is different — multiple ambulances,
+                multiple emergencies, different severity levels, all needing to be optimized together simultaneously.
+                That joint decision-making under constraints is where quantum optimization adds value."
+            </div>
+        </div>
+
+        <!-- Q10 -->
+        <div class="qa-card">
+            <div>
+                <div class="q-label">Question</div>
+                <h3 class="question">What happens if the quantum answer is wrong?</h3>
+            </div>
+            <div class="answer-box">
+                "QAOA gives probabilities — not a single answer. If the top answer is wrong, the second highest
+                probability answer is the fallback. We also cross-verify against our classical Dijkstra result. In our
+                demo, both matched — so the system is validated."
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Stage Rules -->
+    <div class="rules-bar">
+        <div class="rule-item"><span class="rule-dot"></span> Answers under 30s</div>
+        <div class="rule-item"><span class="rule-dot"></span> End with real-world impact</div>
+        <div class="rule-item" style="color:var(--accent);">🎯 Stay Crisp & Confident</div>
+    </div>
+
+</body>
+
+</html>

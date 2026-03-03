@@ -36,81 +36,81 @@
                 <li><a href="#dashboard" class="nav-link">Dashboard</a></li>
                 <li><a href="speaker-notes.html" class="nav-link">🎤 Notes</a></li>
                 <li><a href="faq.html" class="nav-link">❓ FAQ</a></li>
+                <li><a href="faq-m1.html" class="nav-link">🎯 M1</a></li>
             </ul>
             <a href="#dashboard" class="nav-cta">Run Demo →</a>
             <button class="nav-hamburger" id="nav-toggle">☰</button>
         </div>
     </nav>
 
-    <!-- ========== HERO ========== -->
     <section class="hero" id="hero">
-        <div class="hero-badge"><span class="badge-dot"></span> Quantum Computing · QAOA · QUBO</div>
+        <div class="hero-badge"><span class="badge-dot"></span> Next-Generation Emergency Response</div>
         <h1 class="hero-title">Dispatch smarter,<br><span class="hero-accent">save lives faster.</span></h1>
-        <p class="hero-subtitle">A Hybrid Quantum-Classical optimization framework for real-time emergency ambulance
-            dispatch, powered by QUBO formulation and the QAOA algorithm via Qiskit.</p>
+        <p class="hero-subtitle">A smart, automated computer system that instantly finds the absolute best ambulance for
+            every emergency, reducing wait times when every second counts.</p>
         <div class="hero-actions">
-            <a href="#dashboard" class="btn-primary">Run Optimization →</a>
+            <a href="#dashboard" class="btn-primary">Run Live Demo →</a>
             <a href="speaker-notes.html" class="btn-ghost">🎤 Speaker Notes</a>
         </div>
         <div class="hero-stats">
-            <div class="stat"><span>QUBO</span>
-                <p>Formulation</p>
+            <div class="stat"><span>Faster</span>
+                <p>Response Time</p>
             </div>
             <div class="stat-divider"></div>
-            <div class="stat"><span>QAOA</span>
-                <p>Quantum Solver</p>
+            <div class="stat"><span>Smart</span>
+                <p>Live Routing</p>
             </div>
             <div class="stat-divider"></div>
-            <div class="stat"><span>N!</span>
-                <p>Classical Growth</p>
+            <div class="stat"><span>100%</span>
+                <p>Automated</p>
             </div>
             <div class="stat-divider"></div>
-            <div class="stat"><span>Qiskit</span>
-                <p>Framework</p>
+            <div class="stat"><span>Scalable</span>
+                <p>For Big Cities</p>
             </div>
         </div>
     </section>
 
     <!-- ========== ABOUT ========== -->
     <section class="about-section" id="about">
-        <div class="section-label">The Problem</div>
-        <h2 class="section-title">Why Quantum for Ambulance Dispatch?</h2>
-        <p class="section-subtitle">Classical computers struggle with combinatorial explosion. Quantum optimization
-            offers a fundamentally better path.</p>
+        <div class="section-label">Why Do We Need This?</div>
+        <h2 class="section-title">How We Solve the Ambulance Problem</h2>
+        <p class="section-subtitle">When many emergencies happen at once, human dispatchers and normal computers get
+            overwhelmed. Our advanced system fixes this instantly.</p>
         <div class="features-grid">
             <div class="feature-card">
                 <div class="feature-icon">⚡</div>
-                <h3>Factorial Complexity</h3>
-                <p>For N ambulances, classical brute-force requires N! checks. At 20 ambulances, that's 2.4 quintillion
-                    combinations.</p>
+                <h3>Too Many Choices</h3>
+                <p>When a city has dozens of ambulances and calls at the same time, finding the perfect match takes
+                    normal computers too long to figure out.</p>
             </div>
             <div class="feature-card">
                 <div class="feature-icon">🧮</div>
-                <h3>QUBO Formulation</h3>
-                <p>We encode the dispatch problem as a Quadratic Unconstrained Binary Optimization — natively compatible
-                    with quantum algorithms.</p>
+                <h3>Smart Matching Math</h3>
+                <p>We turn the complex puzzle of matching ambulances to patients into a clear mathematical formula that
+                    our system can solve in an instant.</p>
             </div>
             <div class="feature-card">
                 <div class="feature-icon">⚛️</div>
-                <h3>QAOA Algorithm</h3>
-                <p>The Quantum Approximate Optimization Algorithm uses parameterized quantum circuits to find
-                    near-optimal solutions efficiently.</p>
+                <h3>Powerful Algorithms</h3>
+                <p>We use next-generation computing algorithms to look at all possible routes at exactly the same time,
+                    picking the absolute best option.</p>
             </div>
             <div class="feature-card">
                 <div class="feature-icon">🚑</div>
-                <h3>Real-World Impact</h3>
-                <p>Faster, smarter dispatch assignments based on Distance × Traffic × Severity — saving critical minutes
-                    in emergencies.</p>
+                <h3>Saving Critical Minutes</h3>
+                <p>By looking at live traffic, distance, and how severe the emergency is, we make sure the nearest
+                    available vehicle reaches the patient faster.</p>
             </div>
         </div>
     </section>
 
     <!-- ========== DASHBOARD ========== -->
     <section class="dashboard-section" id="dashboard">
-        <div class="section-label">Live Demo</div>
-        <h2 class="section-title">Optimization Dashboard</h2>
-        <p class="section-subtitle">Select ambulances, set availability, configure patients, and run the real Qiskit
-            QAOA engine.</p>
+        <div class="section-label">Interactive Demo</div>
+        <h2 class="section-title">Try The Dispatch Dashboard</h2>
+        <p class="section-subtitle">Select ambulances, set availability, configure emergencies, and watch the system
+            find the best routes instantly.</p>
 
         <div class="dashboard-layout">
             <!-- Controls Panel -->
@@ -173,32 +173,32 @@
                             <div class="unit-name">E1</div>
                             <div class="severity-control">
                                 <span class="sev-label">Sev:</span>
-                                <input type="number" class="sev-input" data-patient="E1" min="1" max="5" value="3">
+                                <input type="number" class="sev-input" data-patient="E1" min="1" max="10" value="3">
                             </div>
                         </div>
                         <div class="unit-card pat-card selected" data-id="E2">
                             <div class="unit-name">E2</div>
                             <div class="severity-control">
                                 <span class="sev-label">Sev:</span>
-                                <input type="number" class="sev-input" data-patient="E2" min="1" max="5" value="2">
+                                <input type="number" class="sev-input" data-patient="E2" min="1" max="10" value="2">
                             </div>
                         </div>
                         <div class="unit-card pat-card" data-id="E3">
                             <div class="unit-name">E3</div>
                             <div class="severity-control">
                                 <span class="sev-label">Sev:</span>
-                                <input type="number" class="sev-input" data-patient="E3" min="1" max="5" value="4">
+                                <input type="number" class="sev-input" data-patient="E3" min="1" max="10" value="4">
                             </div>
                         </div>
                         <div class="unit-card pat-card" data-id="E4">
                             <div class="unit-name">E4</div>
                             <div class="severity-control">
                                 <span class="sev-label">Sev:</span>
-                                <input type="number" class="sev-input" data-patient="E4" min="1" max="5" value="1">
+                                <input type="number" class="sev-input" data-patient="E4" min="1" max="10" value="1">
                             </div>
                         </div>
                     </div>
-                    <p class="hint-text">Click to include. Severity 1=Low, 5=Critical.</p>
+                    <p class="hint-text">Click to include. Severity 1=Low, 10=Critical.</p>
                 </div>
 
                 <div class="control-group">
@@ -215,7 +215,7 @@
                 </div>
                 <button class="run-btn" id="run-btn">🚀 Run Optimization</button>
                 <div class="api-note">💡 Ensure <code>python api.py</code> is running on <code>localhost:8000</code> for
-                    authentic QAOA results.</div>
+                    authentic smart routing results.</div>
             </div>
 
             <!-- Results Panel -->
@@ -224,14 +224,14 @@
 
                     <!-- Metric Cards -->
                     <div class="metrics-grid">
-                        <div class="metric-card classical-card">
-                            <p class="metric-badge classical-badge">🖥️ Classical Result</p>
+                        <div class="metric-card classical-card" style="display:none;">
+                            <p class="metric-badge classical-badge">🖥️ Standard Result</p>
                             <div class="metric-value" id="classical-cost">—</div>
                             <div class="metric-sub">Assignment: <span id="classical-assign">—</span></div>
                             <div class="metric-sub">Time: <span id="classical-time">—</span> sec</div>
                         </div>
-                        <div class="metric-card quantum-card">
-                            <p class="metric-badge quantum-badge">⚛️ Quantum QAOA Result</p>
+                        <div class="metric-card quantum-card" style="grid-column: 1 / -1;">
+                            <p class="metric-badge quantum-badge">⚛️ Smart System Result</p>
                             <div class="metric-value" id="quantum-cost">—</div>
                             <div class="metric-sub">Assignment: <span id="quantum-assign">—</span></div>
                             <div class="metric-sub">Time: <span id="quantum-time">—</span> sec</div>
@@ -240,40 +240,67 @@
 
                     <!-- Chart + Graph -->
                     <div class="visuals-grid">
-                        <div class="chart-container">
-                            <div style="width:100%;height:100%;"><canvas id="timeChart"></canvas></div>
+                        <div class="chart-container collapsible-section">
+                            <div class="section-header" onclick="toggleSection(this)">
+                                <h3>⏱️ Execution Time</h3>
+                                <div class="toggle-icon">▼</div>
+                            </div>
+                            <div class="section-content" style="width:100%;height:100%;">
+                                <canvas id="timeChart"></canvas>
+                            </div>
                         </div>
-                        <div class="graph-container">
-                            <h3>📍 Dispatch Distance Graph <span style="color:#6b7a99;font-weight:400;">(Green=Short ·
-                                    Red=Long)</span></h3>
-                            <div class="canvas-wrapper">
+                        <div class="graph-container collapsible-section">
+                            <div class="section-header" onclick="toggleSection(this)">
+                                <h3>📍 Dispatch Distance Graph <span
+                                        style="color:#6b7a99;font-weight:400;font-size:0.85em;">(Green=Short ·
+                                        Red=Long)</span></h3>
+                                <div class="toggle-icon">▼</div>
+                            </div>
+                            <div class="section-content canvas-wrapper">
                                 <canvas id="graphCanvas" width="500" height="280"></canvas>
                             </div>
                         </div>
                     </div>
 
                     <!-- Cost Heatmap -->
-                    <div class="heatmap-section">
-                        <h3 class="sub-heading">📊 Cost Matrix Heatmap</h3>
-                        <p class="sub-desc">Full computed cost for each ambulance–patient pair. Green = low, Red = high.
-                            Bold border = optimal assignment.</p>
-                        <div id="heatmap-table-wrapper"></div>
+                    <div class="heatmap-section collapsible-section">
+                        <div class="section-header" onclick="toggleSection(this)">
+                            <div>
+                                <h3 class="sub-heading" style="margin-bottom:0.2rem;">📊 Cost Matrix Heatmap</h3>
+                                <p class="sub-desc" style="margin:0;">Full computed cost for each ambulance–patient
+                                    pair. Green = low, Red = high. Bold border = optimal assignment.</p>
+                            </div>
+                            <div class="toggle-icon">▼</div>
+                        </div>
+                        <div class="section-content" id="heatmap-table-wrapper"></div>
                     </div>
 
                     <!-- Scalability Graph -->
-                    <div class="graph-container scalability-section">
-                        <h3 class="sub-heading">📈 Classical vs Quantum Scalability</h3>
-                        <p class="sub-desc">Classical complexity grows as N! (factorial). Quantum approximate methods
-                            scale far better at large N.</p>
-                        <div style="width:100%;height:280px;"><canvas id="scalabilityChart"></canvas></div>
+                    <div class="graph-container scalability-section collapsible-section" style="display:none;">
+                        <div class="section-header" onclick="toggleSection(this)">
+                            <div>
+                                <h3 class="sub-heading" style="margin-bottom:0.2rem;">📈 Classical vs Quantum
+                                    Scalability</h3>
+                                <p class="sub-desc" style="margin:0;">Classical complexity grows as N! (factorial).
+                                    Quantum approximate methods scale far better at large N.</p>
+                            </div>
+                            <div class="toggle-icon">▼</div>
+                        </div>
+                        <div class="section-content" style="width:100%;height:280px;"><canvas
+                                id="scalabilityChart"></canvas></div>
                     </div>
 
                     <!-- Quantum Circuit -->
-                    <div class="circuit-section" id="circuit-section">
-                        <h3 class="sub-heading">⚛️ QAOA Quantum Circuit</h3>
-                        <p class="sub-desc">The actual Qiskit quantum circuit used to solve your optimization problem.
-                        </p>
-                        <div id="circuit-img-wrapper" class="circuit-loading">
+                    <div class="circuit-section collapsible-section" id="circuit-section">
+                        <div class="section-header" onclick="toggleSection(this)">
+                            <div>
+                                <h3 class="sub-heading" style="margin-bottom:0.2rem;">⚛️ QAOA Quantum Circuit</h3>
+                                <p class="sub-desc" style="margin:0;">The actual Qiskit quantum circuit used to solve
+                                    your optimization problem.</p>
+                            </div>
+                            <div class="toggle-icon">▼</div>
+                        </div>
+                        <div class="section-content" id="circuit-img-wrapper" class="circuit-loading">
                             <div class="circuit-spinner">⏳ Loading quantum circuit...</div>
                         </div>
                     </div>
@@ -290,11 +317,17 @@
             <div class="footer-logo">🚑 QuantumDispatch</div>
             <p class="footer-desc">Quantum-Classical Hybrid Ambulance Dispatch · Hackathon 2026</p>
             <div class="footer-links">
-                <a href="#hero">Home</a>
-                <a href="#about">About</a>
-                <a href="#dashboard">Dashboard</a>
-                <a href="speaker-notes.html">🎤 Speaker Notes</a>
-                <a href="faq.html">❓ Judge FAQ</a>
+                <h4
+                    style="color:var(--text); margin-bottom: 1rem; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.1em;">
+                    Quick Links</h4>
+                <ul>
+                    <li><a href="#hero">Home</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#dashboard">Dashboard</a></li>
+                    <li><a href="speaker-notes.html">🎤 Speaker Notes</a></li>
+                    <li><a href="faq.html">❓ Judge FAQ</a></li>
+                    <li><a href="faq-m1.html">🎯 M1 Q&A</a></li>
+                </ul>
             </div>
             <p class="footer-copy">Built with Qiskit · FastAPI · Firebase · QUBO · QAOA</p>
         </div>

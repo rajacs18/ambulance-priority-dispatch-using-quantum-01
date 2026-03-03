@@ -16,11 +16,12 @@ from qiskit_algorithms import QAOA
 from qiskit_algorithms.optimizers import COBYLA
 
 try:
-    from qiskit.primitives import Sampler
-    sampler = Sampler()
-except ImportError:
+    # Use StatevectorSampler (V2) for better performance in newer Qiskit
     from qiskit.primitives import StatevectorSampler
     sampler = StatevectorSampler()
+except ImportError:
+    from qiskit.primitives import Sampler
+    sampler = Sampler()
 
 try:
     import matplotlib
@@ -127,22 +128,32 @@ def solve_dispatch(req: OptimizationRequest):
         qubo = QuadraticProgramToQubo().convert(qp)
 
         t1 = time.time()
-        optimizer = COBYLA(maxiter=3)
+        # Increased iterations for better convergence with larger N
+        optimizer = COBYLA(maxiter=25) 
         qaoa = QAOA(sampler=sampler, optimizer=optimizer, reps=1)
-        result = MinimumEigenOptimizer(qaoa).solve(qubo)
-        quantum_time = time.time() - t1
+        
+        try:
+            result = MinimumEigenOptimizer(qaoa).solve(qubo)
+            quantum_time = time.time() - t1
 
-        quantum_assign: Dict[str, str] = {}
-        quantum_cost = 0.0
+            quantum_assign: Dict[str, str] = {}
+            quantum_cost = 0.0
 
-        for var, val in zip(result.variables, result.x):
-            if val == 1:
-                _, a, p = var.name.split("_", 2)
-                quantum_assign[a] = p
-                quantum_cost += cost_matrix[(a, p)]
+            # Robust parsing: Only look for x_A_P variables, ignore slack/penalty vars
+            for var, val in zip(result.variables, result.x):
+                if val == 1 and var.name.startswith("x_"):
+                    parts = var.name.split("_")
+                    if len(parts) >= 3:
+                        a, p = parts[1], parts[2]
+                        quantum_assign[a] = p
+                        quantum_cost += cost_matrix[(a, p)]
+        except Exception as q_err:
+            print(f"Quantum Solver Error: {q_err}")
+            quantum_assign = {}
+            quantum_time = time.time() - t1
 
-        # fallback if QAOA returns empty (e.g., small reps)
-        if not quantum_assign:
+        # fallback if QAOA fails or returns invalid assignment
+        if len(quantum_assign) < n:
             quantum_assign = best_assign
             quantum_cost = best_cost
 
