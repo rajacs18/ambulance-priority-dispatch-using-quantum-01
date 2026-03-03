@@ -417,17 +417,17 @@ body {
 .dashboard-section .section-title,
 .dashboard-section .section-label,
 .dashboard-section .section-subtitle {
-    max-width: 1200px;
+    max-width: 1400px;
     margin-left: auto;
     margin-right: auto;
 }
 
 .dashboard-layout {
-    max-width: 1200px;
+    max-width: 1400px;
     margin: 0 auto;
     display: grid;
-    grid-template-columns: 320px 1fr;
-    gap: 2rem;
+    grid-template-columns: 340px 1fr;
+    gap: 2.5rem;
     align-items: start;
 }
 
@@ -441,8 +441,9 @@ body {
     flex-direction: column;
     gap: 1.5rem;
     position: sticky;
-    top: 100px;
-    max-height: calc(100vh - 120px);
+    top: 40px;
+    /* Reduced from 100px so it sits higher since navbar is no longer sticky */
+    max-height: calc(100vh - 60px);
     overflow-y: auto;
     box-shadow: var(--shadow);
 }
@@ -646,15 +647,15 @@ hr {
 .metrics-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 1.5rem;
-    margin-bottom: 1.5rem;
+    gap: 2rem;
+    margin-bottom: 2rem;
 }
 
 .metric-card {
     background: #ffffff;
     border: 1px solid var(--border);
     border-radius: var(--radius);
-    padding: 2.2rem;
+    padding: 1.8rem;
     text-align: center;
     transition: all 0.3s ease;
     box-shadow: var(--shadow-sm);
@@ -689,7 +690,7 @@ hr {
 }
 
 .metric-value {
-    font-size: 3rem;
+    font-size: 2.5rem;
     font-weight: 900;
     letter-spacing: -0.03em;
     background: linear-gradient(90deg, #e8f0fe, #00e676);
@@ -720,9 +721,9 @@ hr {
 .visuals-grid {
     display: grid;
     grid-template-columns: 1fr 2fr;
-    gap: 1.5rem;
+    gap: 2rem;
     height: 360px;
-    margin-bottom: 1.5rem;
+    margin-bottom: 2rem;
 }
 
 .chart-container,
